@@ -69,7 +69,7 @@ module mode_1(Enable,
 
     //7Seg Displaying Purpose Data Out Pins (6 Digit BCD Sigs)
     wire [5:0]hour__Data_wire;
-    assign hour__Data_wire      = (Disp_Type_Toggle) ? hourData_converted2AM_PM_type : internalTimeData[HOUR_DATA];
+    assign hour__Data_wire      = (Disp_Type_Toggle) ? hourData_converted2AM_PM_type: internalTimeData[HOUR_DATA];
     assign hour__Data_2nd_Digit = hour__Data_wire / 10;
     assign hour__Data_1st_Digit = hour__Data_wire % 10;
     assign minuteData_2nd_Digit = internalTimeData[MIN__DATA] / 10;

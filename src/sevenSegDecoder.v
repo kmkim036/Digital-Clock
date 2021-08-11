@@ -111,15 +111,15 @@ module sevenSegDecoder(data,
     (data == DAT__) ? SEG__: SEG_Off;
     
     
-    assign HEX_Wire = (Mode) ? HEX_Wire_2 : HEX_Wire_1;
+    assign HEX_Wire = (Mode) ? HEX_Wire_2: HEX_Wire_1;
     
-    assign HEX[0] = (Enable) ? HEX_Wire[6] : 1'b1;
-    assign HEX[1] = (Enable) ? HEX_Wire[5] : 1'b1;
-    assign HEX[2] = (Enable) ? HEX_Wire[4] : 1'b1;
-    assign HEX[3] = (Enable) ? HEX_Wire[3] : 1'b1;
-    assign HEX[4] = (Enable) ? HEX_Wire[2] : 1'b1;
-    assign HEX[5] = (Enable) ? HEX_Wire[1] : 1'b1;
-    assign HEX[6] = (Enable) ? HEX_Wire[0] : 1'b1;
+    assign HEX[0] = (Enable) ? HEX_Wire[6]: 1'b1;
+    assign HEX[1] = (Enable) ? HEX_Wire[5]: 1'b1;
+    assign HEX[2] = (Enable) ? HEX_Wire[4]: 1'b1;
+    assign HEX[3] = (Enable) ? HEX_Wire[3]: 1'b1;
+    assign HEX[4] = (Enable) ? HEX_Wire[2]: 1'b1;
+    assign HEX[5] = (Enable) ? HEX_Wire[1]: 1'b1;
+    assign HEX[6] = (Enable) ? HEX_Wire[0]: 1'b1;
     
 endmodule
     

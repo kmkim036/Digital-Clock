@@ -51,9 +51,9 @@ module mode_3(OBSERV_MODE,
     assign CONVERT_DC_TO_H  = (DigitalCrownData - DC_offset_HOUR) / hour_DigitalCrown_gap;
     assign CONVERT_DC_TO_MS = (DigitalCrownData - DC_offset_MINSEC) / minNsec_DigitalCrown_gap;
     
-    assign hour__Data_DSP = (isITSettingMode) ? CONVERT_DC_TO_H : ALARM_TIME_H;
-    assign minuteData_DSP = (SETTING_HOUR_DONE) ? CONVERT_DC_TO_MS : ALARM_TIME_M;
-    assign secondData_DSP = (SETTING_MINUTE_DONE) ? CONVERT_DC_TO_MS : ALARM_TIME_S;
+    assign hour__Data_DSP = (isITSettingMode) ? CONVERT_DC_TO_H: ALARM_TIME_H;
+    assign minuteData_DSP = (SETTING_HOUR_DONE) ? CONVERT_DC_TO_MS: ALARM_TIME_M;
+    assign secondData_DSP = (SETTING_MINUTE_DONE) ? CONVERT_DC_TO_MS: ALARM_TIME_S;
     
     assign hour__Data_2nd_Digit = hour__Data_DSP / 10;
     assign hour__Data_1st_Digit = hour__Data_DSP % 10;
