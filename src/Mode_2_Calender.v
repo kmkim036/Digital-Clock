@@ -34,12 +34,7 @@ module mode_2(	En,
     input En, B_L, daysignal;
     //signal from mode_1, day changing
     input [9:0] potentiometer_10;
-    output wire [3:0] year_10,
-    year_1,
-    month_10,
-    month_1,
-    day_10,
-    day_1;
+    output wire [3:0] year_10, year_1, month_10, month_1, day_10, day_1;
     reg [1:0]state = S0;
     reg leapyear; //leapyear == 1(year%4 == 0)
     reg [1:0]checkmonth; //0 = >31 1 = >30 2 = >28 3 = >29
@@ -55,7 +50,7 @@ module mode_2(	En,
     //2000 <= year <= 2999
     wire En1,En2;
 
-    assign En1 = En & potentiometer_10[9]    & B_L;	//reset
+    assign En1 = En & potentiometer_10[9] & B_L;	//reset
     assign En2 = En & (~potentiometer_10[9]) & B_L;	//set
 
     always@(posedge En2)
@@ -72,7 +67,9 @@ module mode_2(	En,
     begin
         if (En1)
         begin
-            year <= 5'b00000;  month <= 5'b00000;  day <= 5'b00000;
+            year <= 5'b00000;  
+            month <= 5'b00000;  
+            day <= 5'b00000;
         end        
         else
         begin
@@ -87,7 +84,7 @@ module mode_2(	En,
             end
             else if (state == S2)	//month set
             begin
-                month = potentiometer_10 /	month_DigitalCrown_Gap;
+                month = potentiometer_10 / month_DigitalCrown_Gap;
             end
             else if (state == S3)	//day set  max: 31 or 30 or 29 or 28
             begin
@@ -98,14 +95,14 @@ module mode_2(	En,
                         day = potentiometer_10 / day_DigitalCrown_Gap_29;
                         checkmonth <= 3;
                     end
-                    else if (month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12)
+                    else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
                     begin           
-                        day = potentiometer_10	/	day_DigitalCrown_Gap_31;
+                        day = potentiometer_10 / day_DigitalCrown_Gap_31;
                         checkmonth <= 0;
                     end
                     else	//max 30
                     begin
-                        day = potentiometer_10	/	day_DigitalCrown_Gap_30;
+                        day = potentiometer_10 / day_DigitalCrown_Gap_30;
                         checkmonth <= 1;
                     end
                 end
@@ -113,61 +110,61 @@ module mode_2(	En,
                 begin
                     if(month == 2)	//Feb in ~leapyear
                     begin
-                        day = potentiometer_10	/	day_DigitalCrown_Gap_28;
+                        day = potentiometer_10 / day_DigitalCrown_Gap_28;
                     checkmonth <= 2;
                     end
-                    else if (month == 1||month == 3||month == 5||month == 7||month == 8||month == 10||month == 12)	//max 31
+                    else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)	//max 31
                     begin
-                    day = potentiometer_10	/	day_DigitalCrown_Gap_31;
+                    day = potentiometer_10 / day_DigitalCrown_Gap_31;
                     checkmonth <= 0;
                     end
                     else	//max 30
                     begin
-                    day = potentiometer_10	/	day_DigitalCrown_Gap_30;
+                    day = potentiometer_10 / day_DigitalCrown_Gap_30;
                     checkmonth <= 1;
                     end
                 end
             end
             else if (daysignal)
             begin
-                day <= day+1;
-                if(day == 32&&checkmonth == 0)
+                day <= day + 1;
+                if(day == 32 && checkmonth == 0)
                 begin
-                    month <= month+1;
+                    month <= month + 1;
                     day   <= 1;
                     if (month == 13)
                     begin
-                        year  <= year+1;
+                        year  <= year + 1;
                         month <= 1;
                     end
                 end
-                else if (day == 31&&checkmonth == 1)
+                else if (day == 31 && checkmonth == 1)
                 begin
-                    month <= month+1;
+                    month <= month + 1;
                     day   <= 1;
                     if (month == 13)
                     begin
-                        year  <= year+1;
+                        year  <= year + 1;
                         month <= 1;
                     end
                 end
-                else if (day == 29&&checkmonth == 2)
+                else if (day == 29 && checkmonth == 2)
                 begin
-                    month <= month+1;
+                    month <= month + 1;
                     day   <= 1;
                     if (month == 13)
                     begin
-                        year  <= year+1;
+                        year  <= year + 1;
                         month <= 1;
                     end
                 end
-                else if (day == 30&&checkmonth == 3)
+                else if (day == 30 && checkmonth == 3)
                 begin
-                    month <= month+1;
+                    month <= month + 1;
                     day   <= 1;
                     if (month == 13)
                     begin
-                        year  <= year+1;
+                        year  <= year + 1;
                         month <= 1;
                     end
                 end
@@ -175,12 +172,12 @@ module mode_2(	En,
         end
     end
         
-    assign year_10  = year/10;
-    assign year_1   = year%10;
-    assign month_10 = month/10;
-    assign month_1  = month%10;
-    assign day_10   = day/10;
-    assign day_1    = day%10;
+    assign year_10  = year / 10;
+    assign year_1   = year % 10;
+    assign month_10 = month / 10;
+    assign month_1  = month % 10;
+    assign day_10   = day / 10;
+    assign day_1    = day % 10;
 
 endmodule
 //EOF

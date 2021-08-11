@@ -91,8 +91,7 @@ module sevenSegDecoder(data,
     (data == DAT_C) ? SEG_C:
     (data == DAT_d) ? SEG_d:
     (data == DAT_E) ? SEG_E:
-    (data == DAT_F) ? SEG_F:
-    SEG_Off;
+    (data == DAT_F) ? SEG_F: SEG_Off;
     
     assign HEX_Wire_2 = (data == DAT_g) ? SEG_g:
     (data == DAT_H) ? SEG_H:
@@ -109,8 +108,7 @@ module sevenSegDecoder(data,
     (data == DAT_u) ? SEG_u:
     (data == DAT_Y) ? SEG_Y:
     (data == DAT_hyphen) ? SEG_hyphen:
-    (data == DAT__) ? SEG__:
-    SEG_Off;
+    (data == DAT__) ? SEG__: SEG_Off;
     
     
     assign HEX_Wire = (Mode) ? HEX_Wire_2 : HEX_Wire_1;

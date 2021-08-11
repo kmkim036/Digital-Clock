@@ -51,11 +51,13 @@ module TickGenerator(CLK,
     reg Count_Enable;
     reg [9:0]Countee;
         
-    edgeDetector ED(.signal_IN(Sig_In_TOGGLES),
+    edgeDetector ED(
+    .signal_IN(Sig_In_TOGGLES),
     .edgeDetection__BOTH(ANY_EDGE),
     .edgeDetection_POSIT(),
     .edgeDetection_NEGAT(),
-    .Clock_50MHz(CLK));
+    .Clock_50MHz(CLK)
+    );
     
     initial
     begin
@@ -106,19 +108,22 @@ module B_Length_DETECTOR(B_Trigger,
     reg B_Long_TOGGLE;        
     wire edgePulse_NEGA;
             
-    edgeDetector EDC(.signal_IN(B_Trigger),
+    edgeDetector EDC(
+    .signal_IN(B_Trigger),
     .edgeDetection__BOTH(),
     .edgeDetection_POSIT(),
     .edgeDetection_NEGAT(edgePulse_NEGA),
     .Clock_50MHz(CLOCK_50MHz)
     );
             
-    TickGenerator TG_SHORT(.CLK(CLOCK_50MHz),
+    TickGenerator TG_SHORT(
+    .CLK(CLOCK_50MHz),
     .Sig_In_TOGGLES(B_Short_TOGGLE),
     .Tick_Out(B_Short)
     );
             
-    TickGenerator TG_LONG(.CLK(CLOCK_50MHz),
+    TickGenerator TG_LONG(
+    .CLK(CLOCK_50MHz),
     .Sig_In_TOGGLES(B_Long_TOGGLE),
     .Tick_Out(B_Long)
     );

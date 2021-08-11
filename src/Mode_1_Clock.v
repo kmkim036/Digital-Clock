@@ -58,7 +58,8 @@ module mode_1(Enable,
     reg [5:0]hourData_converted2AM_PM_type;
 
     //1pps clock generator
-    Clock_Generator PulseGen_1Hz(.CLOCK(CLOCK_50MHz),
+    Clock_Generator PulseGen_1Hz(
+    .CLOCK(CLOCK_50MHz),
     .RESET_N(timer_1Hz_Reset),
     .internalCounter(/*NC*/),
     .generatedCLOCK(OneHertzPulse),
@@ -138,7 +139,7 @@ module mode_1(Enable,
         end
         else if (OneHertzPulse)
         begin
-            if (internalTimeData[SEC__DATA] ! = 59)
+            if (internalTimeData[SEC__DATA] != 59)
             begin
                 internalTimeData[SEC__DATA] = internalTimeData[SEC__DATA] + 1;
             end
@@ -151,7 +152,7 @@ module mode_1(Enable,
                 end
                 else
                 begin
-                    if (internalTimeData[HOUR_DATA] ! = 23)
+                    if (internalTimeData[HOUR_DATA] != 23)
                     begin
                         if (Day_Passage_Signal) 
                         begin 

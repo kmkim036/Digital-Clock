@@ -21,22 +21,13 @@ module mode_4(clk_50MHz,
     
     parameter S0 = 1'b0, S1 = 1'b1;
     
-    input clk_50MHz,
-    En,
-    B_S,
-    B_L;	//B_S == Button_short, B_L == Button_long, potentiometer_1 == potentiometer from control circuit
+    input clk_50MHz, En, B_S, B_L;	
+    //B_S == Button_short, B_L == Button_long, potentiometer_1 == potentiometer from control circuit
     
-    output wire [3:0] sechun_10,
-    sechun_1,
-    sec_10,
-    sec_1,
-    min_10,
-    min_1;
+    output wire [3:0] sechun_10, sechun_1, sec_10, sec_1, min_10, min_1;
     
     reg [25:0] sechun_counter = 0;
-    reg [6:0]  sechun = 0,
-    sec = 0,
-    min = 0;
+    reg [6:0]  sechun = 0, sec = 0, min = 0;
     reg state = S0;
     wire En1, En2;
 
@@ -69,20 +60,20 @@ module mode_4(clk_50MHz,
             end
             else if (state == S1)				//restart
             begin
-                sechun_counter <= sechun_counter+1;
+                sechun_counter <= sechun_counter + 1;
                 if (sechun_counter == 26'd500000)
                 begin
                     sechun_counter <= 0;
-                    sechun         <= sechun+1;
+                    sechun         <= sechun + 1;
                     if (sechun == 100)
                     begin
                         sechun <= 0;
-                        sec    <= sec+1;
+                        sec    <= sec + 1;
                     end
                     if (sec == 60)
                     begin
                         sec <= 0;
-                        min <= min+1;
+                        min <= min + 1;
                     end
                     if (min == 100)
                     begin
@@ -95,12 +86,12 @@ module mode_4(clk_50MHz,
         end
     end
     
-    assign sechun_10	 = sechun / 10;
-    assign sechun_1	  = sechun % 10;
-    assign sec_10		   = sec		/ 10;
-    assign sec_1		    = sec		% 10;
-    assign min_10		   = min		/ 10;
-    assign min_1		    = min		% 10;
+    assign sechun_10 = sechun / 10;
+    assign sechun_1	 = sechun % 10;
+    assign sec_10	 = sec / 10;
+    assign sec_1	 = sec % 10;
+    assign min_10	 = min / 10;
+    assign min_1	 = min % 10;
 
 endmodule
 //EOF

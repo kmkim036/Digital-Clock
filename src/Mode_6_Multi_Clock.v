@@ -46,8 +46,7 @@ module mode_6(	En,
     (state == S3) ? ((hour + 16) % 24):
     (state == S4) ? ((hour + 15) % 24):
     (state == S5) ? ((hour + 10) % 24):
-    (state == S6) ? ((hour + 7)  % 24):
-    ((hour + 2)  % 24);
+    (state == S6) ? ((hour + 7)  % 24): ((hour + 2)  % 24);
 
     /*
     S0: Seoul
@@ -60,8 +59,8 @@ module mode_6(	En,
     S7: Sydney
     */
 
-    assign hour_10 = dualhour/10;
-    assign hour_1  = dualhour%10;
+    assign hour_10 = dualhour / 10;
+    assign hour_1  = dualhour % 10;
 
 endmodule
 //EOF

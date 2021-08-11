@@ -17,7 +17,8 @@ module FinalProj(CLOCK_50,
     wire [3:0]HEX0_DATA, HEX1_DATA, HEX2_DATA, HEX3_DATA, HEX4_DATA, HEX5_DATA;
     wire [5:0]HEX_MODE, HEX_ENBL;
     
-    FinalProj_Inside DCLK_Intnl(.CLOCK_50(CLOCK_50),
+    FinalProj_Inside DCLK_Intnl(
+    .CLOCK_50(CLOCK_50),
     .B_Trigger(!KEY[0]),
     //.B_Long_(!KEY[1]),
     .DIGITAL_CROWN_DATA(GPIO_0),
@@ -56,13 +57,48 @@ module FinalProj(CLOCK_50,
      assign LEDR[1] = reg1;
     */
     
-    sevenSegDecoder SSD0(.data(HEX0_DATA), .HEX(HEX0), .Enable(HEX_ENBL[0]), .Mode(HEX_MODE[0]));
-    sevenSegDecoder SSD1(.data(HEX1_DATA), .HEX(HEX1), .Enable(HEX_ENBL[1]), .Mode(HEX_MODE[1]));
-    sevenSegDecoder SSD2(.data(HEX2_DATA), .HEX(HEX2), .Enable(HEX_ENBL[2]), .Mode(HEX_MODE[2]));
-    sevenSegDecoder SSD3(.data(HEX3_DATA), .HEX(HEX3), .Enable(HEX_ENBL[3]), .Mode(HEX_MODE[3]));
-    sevenSegDecoder SSD4(.data(HEX4_DATA), .HEX(HEX4), .Enable(HEX_ENBL[4]), .Mode(HEX_MODE[4]));
-    sevenSegDecoder SSD5(.data(HEX5_DATA), .HEX(HEX5), .Enable(HEX_ENBL[5]), .Mode(HEX_MODE[5]));
-    
+    sevenSegDecoder SSD0(
+    .data(HEX0_DATA), 
+    .HEX(HEX0), 
+    .Enable(HEX_ENBL[0]), 
+    .Mode(HEX_MODE[0])
+    );
+
+    sevenSegDecoder SSD1(
+    .data(HEX1_DATA), 
+    .HEX(HEX1), 
+    .Enable(HEX_ENBL[1]), 
+    .Mode(HEX_MODE[1])
+    );
+
+    sevenSegDecoder SSD2(
+    .data(HEX2_DATA), 
+    .HEX(HEX2), 
+    .Enable(HEX_ENBL[2]), 
+    .Mode(HEX_MODE[2])
+    );
+
+    sevenSegDecoder SSD3(
+    .data(HEX3_DATA), 
+    .HEX(HEX3), 
+    .Enable(HEX_ENBL[3]), 
+    .Mode(HEX_MODE[3])
+    );
+
+    sevenSegDecoder SSD4(
+    .data(HEX4_DATA), 
+    .HEX(HEX4), 
+    .Enable(HEX_ENBL[4]), 
+    .Mode(HEX_MODE[4])
+    );
+
+    sevenSegDecoder SSD5(
+    .data(HEX5_DATA), 
+    .HEX(HEX5), 
+    .Enable(HEX_ENBL[5]), 
+    .Mode(HEX_MODE[5])
+    );
+
 endmodule
     
 module FinalProj_Inside(CLOCK_50,
@@ -81,7 +117,7 @@ module FinalProj_Inside(CLOCK_50,
     input [9:0]DIGITAL_CROWN_DATA;
     output [3:0]HEX0_DATA, HEX1_DATA, HEX2_DATA, HEX3_DATA, HEX4_DATA, HEX5_DATA;
     output wire [5:0]HEX_MODE, HEX_ENBL;
-    wire LEDR_CTRL;//////////////////////////////////////////////////////////////////////////<- CHECK
+    wire LEDR_CTRL; // <- CHECK
     wire moduleEnables[6:1];
     wire [5:0]internalTime[2:0];
     wire [3:0]M1_CTRL_SIGS;
@@ -95,13 +131,14 @@ module FinalProj_Inside(CLOCK_50,
     wire [3:0]HEX3_wire[6:1];
     wire [3:0]HEX4_wire[6:1];
     wire [3:0]HEX5_wire[6:1];
-    wire [3:0]ALARM_DSP[5:0]; //for each seven segs.
+    wire [3:0]ALARM_DSP[5:0]; // for each seven segs.
     wire [3:0]TIMER_DSP[5:0];
     wire datePassageSig, M3_AlarmIsDONESIG;
     wire M5_timerIsDONESIg;
     wire [2:0]SevenSegMUX_CTRLR;
     
-    ControllerCircuit CTRL(.B_Trigger(B_Trigger),
+    ControllerCircuit CTRL(
+    .B_Trigger(B_Trigger),
     .Clock_50MHz(CLOCK_50),
     .Module_1_En(moduleEnables[1]),
     .Module_2_En(moduleEnables[2]),
@@ -129,8 +166,7 @@ module FinalProj_Inside(CLOCK_50,
     (SevenSegMUX_CTRLR == 4) ? HEX0_wire[4]:
     (SevenSegMUX_CTRLR == 5) ? HEX0_wire[5]:
     (SevenSegMUX_CTRLR == 6) ? HEX0_wire[1]:
-    (SevenSegMUX_CTRLR == 7) ? TIMER_DSP[0]:
-    4'bxxxx;
+    (SevenSegMUX_CTRLR == 7) ? TIMER_DSP[0]: 4'bxxxx;
     
     assign HEX1_DATA = (SevenSegMUX_CTRLR == 0) ? ALARM_DSP[1]:
     (SevenSegMUX_CTRLR == 1) ? HEX1_wire[1]:
@@ -139,8 +175,7 @@ module FinalProj_Inside(CLOCK_50,
     (SevenSegMUX_CTRLR == 4) ? HEX1_wire[4]:
     (SevenSegMUX_CTRLR == 5) ? HEX1_wire[5]:
     (SevenSegMUX_CTRLR == 6) ? HEX1_wire[1]:
-    (SevenSegMUX_CTRLR == 7) ? TIMER_DSP[1]:
-    4'bxxxx;
+    (SevenSegMUX_CTRLR == 7) ? TIMER_DSP[1]: 4'bxxxx;
     
     assign HEX2_DATA = (SevenSegMUX_CTRLR == 0) ? ALARM_DSP[2]:
     (SevenSegMUX_CTRLR == 1) ? HEX2_wire[1]:
@@ -149,8 +184,7 @@ module FinalProj_Inside(CLOCK_50,
     (SevenSegMUX_CTRLR == 4) ? HEX2_wire[4]:
     (SevenSegMUX_CTRLR == 5) ? HEX2_wire[5]:
     (SevenSegMUX_CTRLR == 6) ? HEX2_wire[1]:
-    (SevenSegMUX_CTRLR == 7) ? TIMER_DSP[2]:
-    4'bxxxx;
+    (SevenSegMUX_CTRLR == 7) ? TIMER_DSP[2]: 4'bxxxx;
     
     assign HEX3_DATA = (SevenSegMUX_CTRLR == 0) ? ALARM_DSP[3]:
     (SevenSegMUX_CTRLR == 1) ? HEX3_wire[1]:
@@ -159,8 +193,7 @@ module FinalProj_Inside(CLOCK_50,
     (SevenSegMUX_CTRLR == 4) ? HEX3_wire[4]:
     (SevenSegMUX_CTRLR == 5) ? HEX3_wire[5]:
     (SevenSegMUX_CTRLR == 6) ? HEX3_wire[1]:
-    (SevenSegMUX_CTRLR == 7) ? TIMER_DSP[3]:
-    4'bxxxx;
+    (SevenSegMUX_CTRLR == 7) ? TIMER_DSP[3]: 4'bxxxx;
     
     assign HEX4_DATA = (SevenSegMUX_CTRLR == 0) ? ALARM_DSP[4]:
     (SevenSegMUX_CTRLR == 1) ? HEX4_wire[1]:
@@ -169,8 +202,7 @@ module FinalProj_Inside(CLOCK_50,
     (SevenSegMUX_CTRLR == 4) ? HEX4_wire[4]:
     (SevenSegMUX_CTRLR == 5) ? HEX4_wire[5]:
     (SevenSegMUX_CTRLR == 6) ? HEX4_wire[6]:
-    (SevenSegMUX_CTRLR == 7) ? TIMER_DSP[4]:
-    4'bxxxx;
+    (SevenSegMUX_CTRLR == 7) ? TIMER_DSP[4]: 4'bxxxx;
     
     assign HEX5_DATA = (SevenSegMUX_CTRLR == 0) ? ALARM_DSP[5]:
     (SevenSegMUX_CTRLR == 1) ? HEX5_wire[1]:
@@ -179,10 +211,10 @@ module FinalProj_Inside(CLOCK_50,
     (SevenSegMUX_CTRLR == 4) ? HEX5_wire[4]:
     (SevenSegMUX_CTRLR == 5) ? HEX5_wire[5]:
     (SevenSegMUX_CTRLR == 6) ? HEX5_wire[6]:
-    (SevenSegMUX_CTRLR == 7) ? TIMER_DSP[5]:
-    4'bxxxx;
+    (SevenSegMUX_CTRLR == 7) ? TIMER_DSP[5]: 4'bxxxx;
     
-    mode_1 AVRG_CLK(	.Enable(moduleEnables[1]),
+    mode_1 AVRG_CLK(	
+    .Enable(moduleEnables[1]),
     .CLOCK_50MHz(CLOCK_50),
     .settingTrigger(M1_CTRL_SIGS[3]),
     .settingSig_3bit(M1_CTRL_SIGS[2:0]),
@@ -208,16 +240,17 @@ module FinalProj_Inside(CLOCK_50,
     output reg Day_Passage_Signal;
     */
         
-    mode_2 CALENDAR(	.En		(moduleEnables[2]),
+    mode_2 CALENDAR(	
+    .En(moduleEnables[2]),
     .potentiometer_10(DIGITAL_CROWN_DATA),
-    .B_L		(M2_CTRL_SIGS),
+    .B_L(M2_CTRL_SIGS),
     .daysignal(datePassageSig),
-    .year_10	(HEX5_wire[2]),
-    .year_1	(HEX4_wire[2]),
+    .year_10(HEX5_wire[2]),
+    .year_1(HEX4_wire[2]),
     .month_10(HEX3_wire[2]),
-    .month_1	(HEX2_wire[2]),
-    .day_10	(HEX1_wire[2]),
-    .day_1	(HEX0_wire[2])
+    .month_1(HEX2_wire[2]),
+    .day_10(HEX1_wire[2]),
+    .day_1(HEX0_wire[2])
     );
     
     /*
@@ -227,7 +260,8 @@ module FinalProj_Inside(CLOCK_50,
     output wire [3:0] year_10, year_1, month_10, month_1, day_10, day_1;
     */
     
-    mode_3 ALARM(	.OBSERV_MODE(moduleEnables[3]),
+    mode_3 ALARM(	
+    .OBSERV_MODE(moduleEnables[3]),
     .CLOCK_50(CLOCK_50),
     .DigitalCrownData(DIGITAL_CROWN_DATA),
     .ALARM_ALERT_SIG(),
@@ -257,16 +291,17 @@ module FinalProj_Inside(CLOCK_50,
     output [3:0]hour__Data_2nd_Digit, hour__Data_1st_Digit, minuteData_2nd_Digit, minuteData_1st_Digit, secondData_2nd_Digit, secondData_1st_Digit;
     */
     
-    mode_4 STOPWATCH(	.clk_50MHz(CLOCK_50),
+    mode_4 STOPWATCH(	
+    .clk_50MHz(CLOCK_50),
     .En(moduleEnables[4]),
     .B_S(),
     .B_L(),
     .sechun_10(HEX5_wire[4]),
-    .sechun_1 (HEX4_wire[4]),
-    .sec_10	 (HEX3_wire[4]),
-    .sec_1	 (HEX2_wire[4]),
-    .min_10	 (HEX1_wire[4]),
-    .min_1	 (HEX0_wire[4])
+    .sechun_1(HEX4_wire[4]),
+    .sec_10(HEX3_wire[4]),
+    .sec_1(HEX2_wire[4]),
+    .min_10(HEX1_wire[4]),
+    .min_1(HEX0_wire[4])
     );
     
     /*
@@ -275,17 +310,18 @@ module FinalProj_Inside(CLOCK_50,
     output wire [3:0] sechun_10, sechun_1, sec_10, sec_1, min_10, min_1;
     */
     
-    mode_5 TIMER(.clk_50MHz(CLOCK_50),
+    mode_5 TIMER(
+    .clk_50MHz(CLOCK_50),
     .En(moduleEnables[5]),
     .potentiometer_10(DIGITAL_CROWN_DATA),
     .B_S(M5_CTRL_SIGS[0]),
     .B_L(M5_CTRL_SIGS[1]),
     .sechun_10(HEX5_wire[5]),
-    .sechun_1 (HEX4_wire[5]),
-    .sec_10	 (HEX3_wire[5]),
-    .sec_1	 (HEX2_wire[5]),
-    .min_10	 (HEX1_wire[5]),
-    .min_1	 (HEX0_wire[5]),
+    .sechun_1(HEX4_wire[5]),
+    .sec_10(HEX3_wire[5]),
+    .sec_1(HEX2_wire[5]),
+    .min_10(HEX1_wire[5]),
+    .min_1(HEX0_wire[5]),
     .stopsignal(M5_CTRL_SIGS[2]),
     .signal(M5_timerIsDONESIg)
     );
@@ -327,11 +363,12 @@ module FinalProj_Inside(CLOCK_50,
     */
     
     
-    mode_6 MULT_CLK(	.En(moduleEnables[6]),
+    mode_6 MULT_CLK(	
+    .En(moduleEnables[6]),
     .DigitalCrownValue(DIGITAL_CROWN_DATA),
-    .hour		(internalTime[2][4:0]),
-    .hour_10	(HEX5_wire[6]),
-    .hour_1	(HEX4_wire[6])
+    .hour(internalTime[2][4:0]),
+    .hour_10(HEX5_wire[6]),
+    .hour_1(HEX4_wire[6])
     );
     
     /*

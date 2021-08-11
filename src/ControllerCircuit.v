@@ -65,12 +65,11 @@ module ControllerCircuit(B_Trigger,
     assign HEX_MODE          = 0;
     assign HEX_ENBL          = 1;
     assign SevenSegMUX_CTRLR = (modeStateReg == Mode1) ? 1:
- 	(modeStateReg == Mode2) ? 2: 
+    (modeStateReg == Mode2) ? 2: 
 	(modeStateReg == Mode3) ? 3: 
 	(modeStateReg == Mode4) ? 4: 
 	(modeStateReg == Mode5) ? 5: 
-	(modeStateReg == Mode6) ? 6: 
-	1;
+	(modeStateReg == Mode6) ? 6: 1;
     //(modeStateReg == Mode) ? :
     
     //Enable Configuration
@@ -92,7 +91,8 @@ module ControllerCircuit(B_Trigger,
     TickGenerator(CLK, Sig_In_TOGGLES, Tick_Out);
     TickGenerator(CLK, Sig_In_TOGGLES, Tick_Out);
     
-    B_Length_DETECTOR ButtonLengthDetector(.B_Trigger(B_Trigger),
+    B_Length_DETECTOR ButtonLengthDetector(
+    .B_Trigger(B_Trigger),
     .CLOCK_50MHz(Clock_50MHz),
     .B_Short(B_Short),
     .B_Long(B_Long)

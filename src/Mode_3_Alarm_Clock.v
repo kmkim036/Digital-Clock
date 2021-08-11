@@ -30,31 +30,17 @@ module mode_3(OBSERV_MODE,
     parameter minNsec_DigitalCrown_gap = 17; //(1024 / (59+1))
     parameter DC_offset_HOUR           = 8; //total offset           = 16
     parameter DC_offset_MINSEC         = 2; //total offset         = 4
-    parameter STATUS_OFF = 0,
-    STATUS_ON_WAIT = 1,
-    STATUS_ALERT = 2,
-    STATUS_OK2OFF = 3;
+    parameter STATUS_OFF = 0, STATUS_ON_WAIT = 1, STATUS_ALERT = 2, STATUS_OK2OFF = 3;
     
     reg [2:0]STATUS_REG;
-    input OBSERV_MODE,
-    SETTING_INITIATE_SIG,
-    SETTING_HOUR_DONE,
-    SETTING_MINUTE_DONE,
-    SETTING_SECOND_DONE;
+    input OBSERV_MODE, SETTING_INITIATE_SIG, SETTING_HOUR_DONE, SETTING_MINUTE_DONE, SETTING_SECOND_DONE;
     input CLOCK_50;
     input ALARM_OFF_SIG;
     input [9:0]DigitalCrownData;
     input [5:0]internalTime_H, internalTime_M, internalTime_S;
     output reg ALARM_ALERT_SIG;
-    output [3:0]hour__Data_2nd_Digit,
-    hour__Data_1st_Digit,
-    minuteData_2nd_Digit,
-    minuteData_1st_Digit,
-    secondData_2nd_Digit,
-    secondData_1st_Digit;
-    wire   [5:0]hour__Data_DSP,
-    minuteData_DSP,
-    secondData_DSP;
+    output [3:0]hour__Data_2nd_Digit, hour__Data_1st_Digit, minuteData_2nd_Digit, minuteData_1st_Digit, secondData_2nd_Digit, secondData_1st_Digit;
+    wire   [5:0]hour__Data_DSP, minuteData_DSP, secondData_DSP;
     wire [5:0]CONVERT_DC_TO_H, CONVERT_DC_TO_MS;
     wire ALARM_ENABLE_WIRE;
     reg ALARM_ENABLE;
