@@ -17,12 +17,12 @@ module mode_4(clk_50MHz,
               sec_1,
               min_10,
               min_1);
-    //stopwatch
+    // stopwatch
     
     parameter S0 = 1'b0, S1 = 1'b1;
     
     input clk_50MHz, En, B_S, B_L;	
-    //B_S == Button_short, B_L == Button_long, potentiometer_1 == potentiometer from control circuit
+    // B_S == Button_short, B_L == Button_long, potentiometer_1 == potentiometer from control circuit
     
     output wire [3:0] sechun_10, sechun_1, sec_10, sec_1, min_10, min_1;
     
@@ -31,8 +31,8 @@ module mode_4(clk_50MHz,
     reg state = S0;
     wire En1, En2;
 
-    assign En1 = En & B_L;	//reset
-    assign En2 = En & B_S;	//stop/start
+    assign En1 = En & B_L;	// reset
+    assign En2 = En & B_S;	// stop/start
     
     always@(posedge En2)
     begin
@@ -52,13 +52,13 @@ module mode_4(clk_50MHz,
             sec            <= 0;
             min            <= 0;
         end
-        else //can work in En == 0 state
+        else // can work in En == 0 state
         begin
-            if (state == S0)	//stop
+            if (state == S0)	// stop
             begin
                 sechun_counter <= sechun_counter;
             end
-            else if (state == S1)				//restart
+            else if (state == S1)				// restart
             begin
                 sechun_counter <= sechun_counter + 1;
                 if (sechun_counter == 26'd500000)
@@ -94,5 +94,4 @@ module mode_4(clk_50MHz,
     assign min_1	 = min % 10;
 
 endmodule
-//EOF
-
+// EOF

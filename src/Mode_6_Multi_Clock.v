@@ -12,7 +12,8 @@ module mode_6(	En,
               DigitalCrownValue,
               hour_10,
               hour_1);
-//multi clock
+    // multi clock
+    
     parameter S0 = 3'b000, S1 = 3'b001, S2 = 3'b010, S3 = 3'b011, S4 = 3'b100, S5 = 3'b101, S6 = 3'b110, S7 = 3'b111;
 
     input [9:0]DigitalCrownValue;
@@ -63,5 +64,5 @@ module mode_6(	En,
     assign hour_1  = dualhour % 10;
 
 endmodule
-//EOF
+// EOF
 

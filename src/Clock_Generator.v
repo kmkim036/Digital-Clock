@@ -5,7 +5,7 @@ module Clock_Generator(CLOCK,
                        COMPARAND,
                        Enable);
     
-    parameter n = 32; //32bit System
+    parameter n = 32;   // 32bit System
     
     input [n-1:0]COMPARAND;
     input CLOCK, RESET_N, Enable;
@@ -32,14 +32,14 @@ module Clock_Generator(CLOCK,
                 if (internalCounter == COMPARAND)
                 begin
                     internalCounter = 1;
-                    generatedCLOCK  = 1;//Duty  = 50%, works as clock
+                    generatedCLOCK  = 1;    // Duty  = 50%, works as clock
                 end
                 else
                 begin
                     internalCounter = internalCounter + 1;
                     if (internalCounter == {1'b0, COMPARAND[n-1:1]})
                     begin
-                        generatedCLOCK = 0;//Duty = 50%, Falling Edge
+                        generatedCLOCK = 0 ;    // Duty = 50%, Falling Edge
                     end
                 end
             end
@@ -47,5 +47,5 @@ module Clock_Generator(CLOCK,
     end
     
 endmodule
-    //EOF
+    // EOF
 

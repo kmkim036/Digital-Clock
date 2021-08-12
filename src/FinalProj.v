@@ -20,7 +20,7 @@ module FinalProj(CLOCK_50,
     FinalProj_Inside DCLK_Intnl(
     .CLOCK_50(CLOCK_50),
     .B_Trigger(!KEY[0]),
-    //.B_Long_(!KEY[1]),
+    // .B_Long_(!KEY[1]),
     .DIGITAL_CROWN_DATA(GPIO_0),
     .HEX0_DATA(HEX0_DATA),
     .HEX1_DATA(HEX1_DATA),
@@ -131,7 +131,7 @@ module FinalProj_Inside(CLOCK_50,
     wire [3:0]HEX3_wire[6:1];
     wire [3:0]HEX4_wire[6:1];
     wire [3:0]HEX5_wire[6:1];
-    wire [3:0]ALARM_DSP[5:0]; // for each seven segs.
+    wire [3:0]ALARM_DSP[5:0];   // for each seven segs.
     wire [3:0]TIMER_DSP[5:0];
     wire datePassageSig, M3_AlarmIsDONESIG;
     wire M5_timerIsDONESIg;
@@ -325,7 +325,7 @@ module FinalProj_Inside(CLOCK_50,
     .stopsignal(M5_CTRL_SIGS[2]),
     .signal(M5_timerIsDONESIg)
     );
-    //timer
+    // timer
     
     /*
         clk_50MHz,
@@ -380,5 +380,5 @@ module FinalProj_Inside(CLOCK_50,
     */
 
 endmodule
-//EOF
+// EOF
 

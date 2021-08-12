@@ -31,7 +31,7 @@ module sevenSegDecoder(data,
     SEG_P = 7'b0011000,
     SEG_q = 7'b0001100,
     SEG_r = 7'b1111010,
-    SEG_S = 7'b0100100,/*Same with number 5*/
+    SEG_S = 7'b0100100, /*Same with number 5*/
     SEG_t = 7'b1110000,
     SEG_u = 7'b1100011,
     SEG_Y = 7'b1000100,
@@ -72,7 +72,7 @@ module sevenSegDecoder(data,
     DAT__ = 4'b1111;
     
     input [3:0] data;
-    input Enable, Mode; //Enable turns on / off 7Seg Disp when it is HIGH. Mode changes from/to HEXADECIMAL(0~F)(1) to ALPHABETS(H~u)(0)
+    input Enable, Mode; // Enable turns on / off 7Seg Disp when it is HIGH. Mode changes from/to HEXADECIMAL(0~F)(1) to ALPHABETS(H~u)(0)
     output [6:0] HEX;
     wire [6:0]HEX_Wire, HEX_Wire_1, HEX_Wire_2;
     
@@ -122,6 +122,4 @@ module sevenSegDecoder(data,
     assign HEX[6] = (Enable) ? HEX_Wire[0]: 1'b1;
     
 endmodule
-    
-    //EOF
-
+// EOF

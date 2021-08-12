@@ -20,17 +20,17 @@ module mode_5(clk_50MHz,
               min_10,
               min_1,
               signal);
-    //timer
+    // timer
     
     parameter S0 = 3'b000, S1 = 3'b001, S2 = 3'b010, S3 = 3'b011, S4 = 3'b100;
     parameter minNsec_DigitalCrown_gap = 17, sechun_DigitalCrown_Gap = 10;
     
-    //S0: normal state, timer stop. S1: timer start. S2: sechun set. S3: sec set. S3: min set
+    // S0: normal state, timer stop. S1: timer start. S2: sechun set. S3: sec set. S3: min set
     input[9:0] potentiometer_10;
-    input B_S, B_L, clk_50MHz, En, stopsignal;  //B_S == Timer stop/start B_L == timer reset
+    input B_S, B_L, clk_50MHz, En, stopsignal;  // B_S == Timer stop/start B_L == timer reset
     
-    //while timer works(S1), you cannot set the time again. you only can set time in stop mode
-    output reg signal = 0;	//timer end signal
+    // while timer works(S1), you cannot set the time again. you only can set time in stop mode
+    output reg signal = 0;	// timer end signal
     output wire [3:0] sechun_10,sechun_1,sec_10,sec_1,min_10,min_1;
     reg [6:0] sechun = 0,sec = 0,min = 0;
     reg [25:0] sechun_counter;
@@ -38,11 +38,11 @@ module mode_5(clk_50MHz,
     integer i, j;
     
     wire En1, En2,En3;
-    //reset set timer startstop
+    // reset set timer startstop
     
-    assign En1 = En & B_L & potentiometer_10[9];	//reset
-    assign En2 = En & B_S & potentiometer_10[9];	//start/stop
-    assign En3 = En & B_L & (~potentiometer_10[9]);	//set
+    assign En1 = En & B_L & potentiometer_10[9];	// reset
+    assign En2 = En & B_S & potentiometer_10[9];	// start/stop
+    assign En3 = En & B_L & (~potentiometer_10[9]);	// set
     
     always@(posedge En2 or posedge En3)
     begin
@@ -70,12 +70,12 @@ module mode_5(clk_50MHz,
         end
         else
         begin
-            if (state == S0)	//stop
+            if (state == S0)	// stop
             begin
                 sechun_counter <= sechun_counter;
                 signal = 0;
             end
-            else if (state == S1)	//start(restart)
+            else if (state == S1)	// start(restart)
             begin
                 sechun_counter <= sechun_counter + 1;
                 if (sechun_counter == 26'd500000)
@@ -109,15 +109,15 @@ module mode_5(clk_50MHz,
                         min <= 0;
                 end
             end
-            else if (state == S2)	//sechun set
+            else if (state == S2)	// sechun set
             begin
                 sechun = potentiometer_10 / sechun_DigitalCrown_Gap;
             end
-            else if (state == S3)	//sec set
+            else if (state == S3)	// sec set
             begin
                 sec = potentiometer_10 / minNsec_DigitalCrown_gap;
             end
-            else if (state == S4)	//min set
+            else if (state == S4)	// min set
             begin
                 min = potentiometer_10 / minNsec_DigitalCrown_gap;
             end
@@ -132,5 +132,5 @@ module mode_5(clk_50MHz,
     assign min_1	  = min	% 10;
     
 endmodule
-//EOF
+// EOF
 

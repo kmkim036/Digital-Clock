@@ -26,10 +26,10 @@ module mode_3(OBSERV_MODE,
               secondData_1st_Digit,
               );
     
-    parameter hour_DigitalCrown_gap    = 42; //(1024 / (23+1))
-    parameter minNsec_DigitalCrown_gap = 17; //(1024 / (59+1))
-    parameter DC_offset_HOUR           = 8; //total offset           = 16
-    parameter DC_offset_MINSEC         = 2; //total offset         = 4
+    parameter hour_DigitalCrown_gap    = 42;    // (1024 / (23+1))
+    parameter minNsec_DigitalCrown_gap = 17;    // (1024 / (59+1))
+    parameter DC_offset_HOUR           = 8; // total offset = 16
+    parameter DC_offset_MINSEC         = 2; // total offset = 4
     parameter STATUS_OFF = 0, STATUS_ON_WAIT = 1, STATUS_ALERT = 2, STATUS_OK2OFF = 3;
     
     reg [2:0]STATUS_REG;
@@ -100,7 +100,7 @@ module mode_3(OBSERV_MODE,
     end
         
     always@(posedge CLOCK_50)
-    begin //STATUS_REG
+    begin // STATUS_REG
         if (STATUS_REG == STATUS_OFF)
         begin
             if (OBSERV_MODE & DigitalCrownData[9] & (~isITSettingMode))
@@ -146,5 +146,5 @@ module mode_3(OBSERV_MODE,
     end
                                 
 endmodule
-//EOF
+// EOF
 

@@ -32,23 +32,23 @@ module modulo_Counter_with_Comparand(TICK,
             Q_DIGIT_CHANGE = 0;
         end
         else
-        begin //If Reset        
+        begin   // If Reset        
             if (Enable)
             begin
                 if (Q_OUT == COMPARAND)
                 begin
                     Q_OUT          = 0;
-                    Q_DIGIT_CHANGE = 1; //Duty = 1/n%, Works as Clock
+                    Q_DIGIT_CHANGE = 1; // Duty = 1/n%, Works as Clock
                 end
                 else
                 begin
                     Q_OUT          = Q_OUT + 1;
-                    Q_DIGIT_CHANGE = 0; //-_________-_________
+                    Q_DIGIT_CHANGE = 0; // -_________-_________
                 end
-            end//End Enable            
-        end //End Reset
+            end // End Enable            
+        end     // End Reset
     end
     
 endmodule
-//EOF
+// EOF
 

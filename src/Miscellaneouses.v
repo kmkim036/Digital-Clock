@@ -14,13 +14,13 @@ module edgeDetector(signal_IN,
     wire posedgeDETECT;
     wire negedgeDETECT;
     
-    //POSITIVE EDGE DETECTOR
+    // POSITIVE EDGE DETECTOR
     assign posedgeDETECT = (~REG_POSEDGE) & signal_IN;
     
-    //NEGATIVE EDGE DETECTOR
+    // NEGATIVE EDGE DETECTOR
     assign negedgeDETECT = REG_NEGEDGE & ~signal_IN;
     
-    //REGISTERS SETUP
+    // REGISTERS SETUP
     initial
     begin
         REG_POSEDGE = 0;
@@ -165,7 +165,7 @@ module B_Length_DETECTOR(B_Trigger,
         end
         else if (edgePulse_NEGA)
         begin
-            if (START_COUNTING) //It was still counting, which means B_SHort
+            if (START_COUNTING) // It was still counting, which means B_SHort
             begin
                 START_COUNTING = 0;
                 B_Short_TOGGLE = ~B_Short_TOGGLE;
@@ -179,5 +179,5 @@ module B_Length_DETECTOR(B_Trigger,
     end
 
 endmodule
-//EOF
+// EOF
 
